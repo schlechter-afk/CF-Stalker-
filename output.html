@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  style="
+    padding-left: 550px;
+    padding-right: 550px;
+    padding-top: 190;
+    padding-top: 70px;
+  "
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css\styles.css" />
+    <title>Your Request</title>
+  </head>
+  <body>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Name</th>
+          <th>Rating</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <%  let counter = 1; %>
+         <% for (const x of problems.values()) { %>
+          <%  var ratt = mymap.get(x); %>
+          <%  var ctid = contestidmp.get(x); %>
+          <%  var proidx = proindex.get(x);  %>
+            res.write(counter + "  Problem name:  " + x + "         ");
+            var prolink = ("https://codeforces.com/problemset/problem/" + ctid + "/" + proidx + "\n");
+            res.write((prolink))
+            res.write("\n");
+            <%  counter+=1; %>
+            <% } %> 
+
+          <td>Dom</td>
+          <td>6000</td>
+        </tr>
+        <tr class="active-row">
+          <td>Melissa</td>
+          <td>5150</td>
+        </tr>
+        <!-- and so on... -->
+      </tbody>
+    </table>
+  </body>
+</html>
