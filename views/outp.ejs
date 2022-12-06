@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  style="
+    /* padding-left: 50%;
+    padding-right: 550px;
+    padding-top: 190;
+    padding-top: 70px; */
+    display: flex;
+  justify-content: center;
+    text-align: center;
+  "
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css\styles.css" />
+    <title>Your Request</title>
+  </head>
+  <body>
+    <table class="styled-table">
+      <thead class="toptable">
+        <tr >
+          <th>S.No.</th>
+          <th>Name</th>
+          <th>Rating</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <% for(let i=1 ; i<proname.length    ; i++){ %>
+            <tr>
+            <td><%= serialnum[i] %></td>
+            <td><%= proname[i] %></td>
+            <td><%= prorate[i] %></td>
+            <td> 
+            <a href=<%= prolinker[i] %> target="_blank"><%= linktext[i] %></a>  
+            </td>         
+          </tr>
+            <% } %>
+      </tbody>
+    </table>
+  </body>
+</html>

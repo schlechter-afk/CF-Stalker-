@@ -1,0 +1,94 @@
+body {
+    background-image: url("picbgphoto.png");
+    background-size: cover;
+}
+
+.divfirst{
+    color: red;
+    text-align: center;
+    padding-top: 60px;
+    font-size: 40px;
+    font-family: Papyrus,fantasy; 
+}
+
+.divsec{
+    color: red;
+    text-align: center;
+    padding-top: 60px;
+    font-size: 40px;
+    
+}
+
+
+.btn{
+	position: absolute;
+	top: 64%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 150px;
+    height: 50px;
+  	border: 4px solid #f9c23c;
+  	padding: 5px;
+  	border-radius: 50px;
+  	cursor: pointer;
+  	overflow: hidden;
+    background-color: transparent;
+    font-family: Papyrus,fantasy; 
+    color: #f9c23c;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btntet{
+    color: white;
+}
+
+
+
+.inp{   
+
+padding: 6px 12px;
+font-size: 16px;
+font-weight: 400;
+line-height: 1.5;
+color: #212529;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+appearance: none;
+border-radius: 4px;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+}
+
+.dropmenu{
+    padding: 6px 12px;
+font-size: 16px;
+font-weight: 400;
+line-height: 1.5;
+width: 150px;
+color: #212529;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+appearance: none;
+border-radius: 4px;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+}
+
+
+
+
