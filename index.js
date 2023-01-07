@@ -47,8 +47,10 @@ app.post("/output", function (req, res) {
 
     userhandle = (req.body.userhandle);
     ratingpro = (req.body.rating);
+    taguser = (req.body.taginput);
     console.log(userhandle);
     console.log(ratingpro);
+    console.log(taguser);
     let countst = 1;
     let endst = 6000;
 
@@ -74,13 +76,22 @@ app.post("/output", function (req, res) {
                 var temp = data.result[i].problem.name;
                 var temprate = data.result[i].problem.rating;
                 var checksolve = data.result[i].verdict;
-                if ((temprate == ratingpro) && (checksolve == "OK")) {
+                var taglist = data.result[i].problem.tags;
+                var ch = 0;
+                for(let j = 0; j < data.result[i].problem.tags.length; j++)
+                {
+                    if(data.result[i].problem.tags[j]==taguser)
+                    {
+                        ch = 1;
+                    }
+                }
+
+                if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 1)) {
                     problems.add(temp);
                     mymap.set(temp, data.result[i].problem.rating);
                     contestidmp.set(temp, data.result[i].contestId);
                     proindex.set(temp, data.result[i].problem.index);
                 }
-
             }
 
             let counter = 1;
