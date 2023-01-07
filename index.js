@@ -80,13 +80,23 @@ app.post("/output", function (req, res) {
                 var ch = 0;
                 for(let j = 0; j < data.result[i].problem.tags.length; j++)
                 {
-                    if(data.result[i].problem.tags[j]==taguser)
+                    if(data.result[i].problem.tags[j] == taguser && taguser != "NULL")
                     {
                         ch = 1;
                     }
                 }
+                if(taguser == "NULL")
+                {
+                    ch = 2;
+                }
 
                 if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 1)) {
+                    problems.add(temp);
+                    mymap.set(temp, data.result[i].problem.rating);
+                    contestidmp.set(temp, data.result[i].contestId);
+                    proindex.set(temp, data.result[i].problem.index);
+                }
+                if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 2)) {
                     problems.add(temp);
                     mymap.set(temp, data.result[i].problem.rating);
                     contestidmp.set(temp, data.result[i].contestId);
