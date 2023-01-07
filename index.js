@@ -36,9 +36,6 @@ app.get("/output", function (req, res) {
 });
 
 app.post("/output", function (req, res) {
-    // res.sendFile(__dirname + "/output.html");
-    
-    // clear the arrays
     templist1.length = 1;
     templist2.length = 1;
     templist3.length = 1;
@@ -89,21 +86,31 @@ app.post("/output", function (req, res) {
                 {
                     ch = 2;
                 }
-
-                if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 1)) {
+                if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 1) && (ratingpro != "NULL")) {
                     problems.add(temp);
                     mymap.set(temp, data.result[i].problem.rating);
                     contestidmp.set(temp, data.result[i].contestId);
                     proindex.set(temp, data.result[i].problem.index);
                 }
-                if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 2)) {
+                if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 2) && (ratingpro != "NULL")) {
+                    problems.add(temp);
+                    mymap.set(temp, data.result[i].problem.rating);
+                    contestidmp.set(temp, data.result[i].contestId);
+                    proindex.set(temp, data.result[i].problem.index);
+                }
+                if ((ratingpro == "NULL") && (checksolve == "OK") && (ch == 1)) {
+                    problems.add(temp);
+                    mymap.set(temp, data.result[i].problem.rating);
+                    contestidmp.set(temp, data.result[i].contestId);
+                    proindex.set(temp, data.result[i].problem.index);
+                }
+                if ((ratingpro == "NULL") && (checksolve == "OK") && (ch == 2)) {
                     problems.add(temp);
                     mymap.set(temp, data.result[i].problem.rating);
                     contestidmp.set(temp, data.result[i].contestId);
                     proindex.set(temp, data.result[i].problem.index);
                 }
             }
-
             let counter = 1;
             for (const x of problems.values()) {
                 var ratt = mymap.get(x);
@@ -112,22 +119,13 @@ app.post("/output", function (req, res) {
                 templist1.push(x);
                 templist2.push(ratt);
                 templist4.push(counter);
-                // res.write(counter + "  Problem name:  " + x + "         ");
                 var prolink = ("https://codeforces.com/problemset/problem/" + ctid + "/" + proidx + "\n");
                 var ctidpro = ctid + proidx;
                 templist3.push(prolink);
                 templist5.push(ctidpro);
-                
-                // res.write((prolink))
-                // res.write("\n");
                 counter += 1;
             }
-
-           // console.log(templist1);
-            
-            // res.sendFile(__dirname + "/views/outp.ejs");
             res.redirect("/output");
-            // res.send();
         })
 
 
