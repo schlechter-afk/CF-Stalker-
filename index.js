@@ -45,14 +45,54 @@ app.post("/output", function (req, res) {
     userhandle = (req.body.userhandle);
     ratingpro = (req.body.rating);
     taguser = (req.body.taginput);
+    eduuser = (req.body.educhoose);
     console.log(userhandle);
     console.log(ratingpro);
     console.log(taguser);
+    console.log(eduuser);
     let countst = 1;
     let endst = 6000;
 
     const url = "https://codeforces.com/api/user.status?handle=" + userhandle + "&from=" + countst + "&count=" + endst + "#";
-
+    const contesturl = "https://codeforces.com/api/contest.list?gym=false"
+    const eduids = new Set();
+    var checkedu = 0;
+    if(eduuser == "Yes")
+    {
+        checkedu = 1;
+    }
+    if(checkedu==1)
+    {
+        https.get(contesturl,rescon=>{
+        let data = '';
+        rescon.on('data', chunk => {
+            data += chunk;
+        });
+        rescon.on('end',()=>{
+            data = JSON.parse(data);
+            tempu = data.result.length;
+            for(let i=0;i<tempu;i++)
+            {
+                var contestname = data.result[i].name;
+                var checktrue = 0;
+                if(contestname[0]=='E')
+                {
+                    if(contestname[1]=='d')
+                    {
+                        if(contestname[2]=='u')
+                        {
+                            checktrue=1;
+                        }
+                    }
+                }
+                if(checktrue==1)
+                {
+                    eduids.add(data.result[i].id);
+                }
+            }
+        })
+        })
+    }
     https.get(url, resu => {
         let data = '';
         resu.on('data', chunk => {
@@ -67,13 +107,13 @@ app.post("/output", function (req, res) {
             const contestidmp = new Map();
             const proindex = new Map();
 
-            tempu = data.result.length;
-
+            tempu = data.result.length;            
             for (let i = 0; i < tempu; i++) {
                 var temp = data.result[i].problem.name;
                 var temprate = data.result[i].problem.rating;
                 var checksolve = data.result[i].verdict;
                 var taglist = data.result[i].problem.tags;
+                var contestlink = data.result[i].problem.contestId;
                 var ch = 0;
                 for(let j = 0; j < data.result[i].problem.tags.length; j++)
                 {
@@ -86,29 +126,83 @@ app.post("/output", function (req, res) {
                 {
                     ch = 2;
                 }
+                var flag = 0;
+                var eflag = 0;
                 if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 1) && (ratingpro != "NULL")) {
-                    problems.add(temp);
-                    mymap.set(temp, data.result[i].problem.rating);
-                    contestidmp.set(temp, data.result[i].contestId);
-                    proindex.set(temp, data.result[i].problem.index);
+                    if(checkedu == 1)
+                    {
+                        if(eduids.has(contestlink))
+                        {
+                            problems.add(temp);
+                            mymap.set(temp, data.result[i].problem.rating);
+                            contestidmp.set(temp, data.result[i].contestId);
+                            proindex.set(temp, data.result[i].problem.index);
+                        }
+                    }
+                    if(checkedu == 0)
+                    {
+                        problems.add(temp);
+                        mymap.set(temp, data.result[i].problem.rating);
+                        contestidmp.set(temp, data.result[i].contestId);
+                        proindex.set(temp, data.result[i].problem.index);
+                    }
                 }
                 if ((temprate == ratingpro) && (checksolve == "OK") && (ch == 2) && (ratingpro != "NULL")) {
-                    problems.add(temp);
-                    mymap.set(temp, data.result[i].problem.rating);
-                    contestidmp.set(temp, data.result[i].contestId);
-                    proindex.set(temp, data.result[i].problem.index);
+                    if(checkedu == 1)
+                    {
+                        if(eduids.has(contestlink))
+                        {
+                            problems.add(temp);
+                            mymap.set(temp, data.result[i].problem.rating);
+                            contestidmp.set(temp, data.result[i].contestId);
+                            proindex.set(temp, data.result[i].problem.index);
+                        }
+                    }
+                    if(checkedu == 0)
+                    {
+                        problems.add(temp);
+                        mymap.set(temp, data.result[i].problem.rating);
+                        contestidmp.set(temp, data.result[i].contestId);
+                        proindex.set(temp, data.result[i].problem.index);
+                    }
                 }
                 if ((ratingpro == "NULL") && (checksolve == "OK") && (ch == 1)) {
-                    problems.add(temp);
-                    mymap.set(temp, data.result[i].problem.rating);
-                    contestidmp.set(temp, data.result[i].contestId);
-                    proindex.set(temp, data.result[i].problem.index);
+                    if(checkedu == 1)
+                    {
+                        if(eduids.has(contestlink))
+                        {
+                            problems.add(temp);
+                            mymap.set(temp, data.result[i].problem.rating);
+                            contestidmp.set(temp, data.result[i].contestId);
+                            proindex.set(temp, data.result[i].problem.index);
+                        }
+                    }
+                    if(checkedu == 0)
+                    {
+                        problems.add(temp);
+                        mymap.set(temp, data.result[i].problem.rating);
+                        contestidmp.set(temp, data.result[i].contestId);
+                        proindex.set(temp, data.result[i].problem.index);
+                    }
                 }
                 if ((ratingpro == "NULL") && (checksolve == "OK") && (ch == 2)) {
-                    problems.add(temp);
-                    mymap.set(temp, data.result[i].problem.rating);
-                    contestidmp.set(temp, data.result[i].contestId);
-                    proindex.set(temp, data.result[i].problem.index);
+                    if(checkedu == 1)
+                    {
+                        if(eduids.has(contestlink))
+                        {
+                            problems.add(temp);
+                            mymap.set(temp, data.result[i].problem.rating);
+                            contestidmp.set(temp, data.result[i].contestId);
+                            proindex.set(temp, data.result[i].problem.index);
+                        }
+                    }
+                    if(checkedu == 0)
+                    {
+                        problems.add(temp);
+                        mymap.set(temp, data.result[i].problem.rating);
+                        contestidmp.set(temp, data.result[i].contestId);
+                        proindex.set(temp, data.result[i].problem.index);
+                    }
                 }
             }
             let counter = 1;
@@ -127,23 +221,12 @@ app.post("/output", function (req, res) {
             }
             res.redirect("/output");
         })
-
-
-
     }).on('error', err => {
         console.log(err.message);
     })
-
-    
 });
-
 app.post("/", function (req, res) {
-    
-
-
 });
-
-
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server started....");
 });
