@@ -20,7 +20,7 @@ var templist5 = ["165B"];
 
 
 app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/cfstalk.html");
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.get("/output", function (req, res) {
